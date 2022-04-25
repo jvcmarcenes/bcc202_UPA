@@ -4,4 +4,9 @@ all:
 
 run:
 	make all
-	./upa
+	./upa < test.in
+
+test:
+	make all
+	./upa < test.in > result.out
+	diff result.out test.out
