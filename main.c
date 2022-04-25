@@ -1,0 +1,7 @@
+
+#include "ordenacao.h"
+
+int main() {
+
+	return 0;
+}
