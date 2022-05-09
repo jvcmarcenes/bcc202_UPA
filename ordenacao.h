@@ -2,12 +2,20 @@
 #ifndef ORDENACAO_H
 #define ORDENACAO_H
 
-typedef struct upa UPA;
-typedef struct upa_lista UPA_lista;
+//TAD da upa
+typedef struct upa{
+	char *nome;
+	int emergencia;
+	int urgencia;
+	int sem_urgencia;
+	int qtd_medicos;
+}UPA;
 
-UPA_lista *upa_lista_scan();
-void upa_lista_free(UPA_lista **upa_lista);
-void upa_lista_print(UPA_lista *upa_lista);
-void upa_lista_ordena(UPA_lista *upa_lista);
+UPA *upas_scan(int *qtd); //Aloca um vetor de upas e lé os dados de cada upa
+void upa_scan(UPA *upa); //Lé os dados de cada upa
+UPA *upas_free(UPA *upa, int qtd);//Libera o vetor das upas
+void upas_print(UPA *upa, int qtd); //Imprime as upas
+void upas_quicksort(UPA *upa, int l, int r); //Ordena as upas
+int upas_partition(UPA *upa, int l, int r); //Particiona as upas
 
 #endif

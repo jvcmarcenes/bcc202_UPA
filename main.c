@@ -2,11 +2,12 @@
 #include "ordenacao.h"
 
 int main() {
-
-	UPA_lista *upa_lista = upa_lista_scan();
-	upa_lista_ordena(upa_lista);
-	upa_lista_print(upa_lista);
-	upa_lista_free(&upa_lista);
+	UPA *upa;
+	int qtd;
+	upa = upas_scan(&qtd);
+	upas_quicksort(upa, 0, qtd - 1);
+	upas_print(upa, qtd);
+	upa = upas_free(upa, qtd);
 
 	return 0;
 }

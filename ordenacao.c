@@ -3,69 +3,44 @@
 #include<stdlib.h>
 #include "ordenacao.h"
 
-struct upa {
-	char *nome;
-	int emergencia;
-	int urgencia;
-	int sem_urgencia;
-	int qtd_medicos;
-};
 
-UPA *upa_new(char *nome, int emergencia, int urgencia, int sem_urgencia, int qtd_medicos) {
-	UPA *upa = malloc(sizeof(UPA));
-	*upa = (UPA) { nome, emergencia, urgencia, sem_urgencia, qtd_medicos };
+
+UPA *upas_free(UPA *upa, int qtd){
+	for(int i = 0; i < qtd; i++) free(upa[i].nome); //Libera as strings
+	free(upa); //Libera o vetor das upas
 	return upa;
 }
 
-void upa_free(UPA **upa) {
-	free((*upa)->nome);
-	free(*upa);
-	*upa = NULL;
+void upa_scan(UPA *upa) {
+	upa->nome = (char*) malloc(50 * sizeof(char)); //Aloca um vetor de char
+	//Lé os dados de cada upa
+	scanf("%s %d %d %d %d", upa->nome, &(upa->emergencia), &(upa->urgencia), &(upa->sem_urgencia), &(upa->qtd_medicos));
 }
 
-UPA *upa_scan() {
-	char *nome = malloc(50 * sizeof(char));
-	int emergencia, urgencia, sem_urgencia, qtd_medicos;
-	scanf("%s %d %d %d %d", nome, &emergencia, &urgencia, &sem_urgencia, &qtd_medicos);
-	return upa_new(nome, emergencia, urgencia, sem_urgencia, qtd_medicos);
+void upas_print(UPA *upa, int qtd){
+	for(int i = 0; i < qtd; i++) //Imprime as informaçãoes de cada upa
+		printf("%s %d %d %d %d\n", upa[i].nome, upa[i].emergencia, upa[i].urgencia, upa[i].sem_urgencia, upa[i].qtd_medicos);
 }
 
-void upa_print(UPA *upa) {
-	printf("%s %d %d %d %d\n", upa->nome, upa->emergencia, upa->urgencia, upa->sem_urgencia, upa->qtd_medicos);
+UPA *upas_scan(int *qtd) {
+	scanf("%d", qtd); //Lé a quntidade de upas
+
+	UPA *upa = (UPA*) malloc(*qtd * sizeof(UPA)); //Aloca o vetor das upas
+
+	for(int i  = 0; i < *qtd; i++) upa_scan(&upa[i]); //Preenche cada celula da upa
+
+	return upa;
 }
 
-struct upa_lista {
-	UPA **ptr;
-	int qtd;
-};
-
-UPA_lista *upa_lista_new(int qtd) {
-	UPA_lista *upa_lista = malloc(sizeof(UPA_lista));
-	upa_lista->ptr = malloc(qtd * sizeof(UPA *));
-	upa_lista->qtd = qtd;
-	return upa_lista;
+void upas_quicksort(UPA *upa, int l, int r){
+	int q;
+	if(l < r){
+		q = upas_partition(upa, l, r);
+		upas_quicksort(upa, l, q - 1);
+		upas_quicksort(upa, q + 1, r);
+	}
 }
 
-void upa_lista_free(UPA_lista **upa_lista) {
-	for (int i = 0; i < (*upa_lista)->qtd; i++) upa_free((*upa_lista)->ptr + i);
-	free(*upa_lista);
-	*upa_lista = NULL;
-}
-
-UPA_lista *upa_lista_scan() {
-	int qtd;
-	scanf("%d", &qtd);
-	UPA **upas = malloc(qtd * sizeof(UPA *));
-	for (int i = 0; i < qtd; i++) upas[i] = upa_scan();
-	UPA_lista *upa_lista = malloc(sizeof(UPA_lista));
-	*upa_lista = (UPA_lista) { upas, qtd };
-	return upa_lista;
-}
-
-void upa_lista_print(UPA_lista *upa_lista) {
-	for (int i = 0; i < upa_lista->qtd; i++) upa_print(upa_lista->ptr[i]);
-}
-
-void upa_lista_ordena(UPA_lista *upa_lista) {
-
+int upas_partition(UPA *upa, int l, int r){
+	//TODO fazer essa porra aqui
 }

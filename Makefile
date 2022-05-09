@@ -10,3 +10,6 @@ test:
 	make all
 	./upa < test.in > result.out
 	diff result.out test.out
+
+clear:
+	rm *.o upa
