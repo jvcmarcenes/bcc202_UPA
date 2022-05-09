@@ -12,4 +12,4 @@ test:
 	diff result.out test.out
 
 clear:
-	rm *.o upa
+	rm *.o upa out.out

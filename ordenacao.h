@@ -17,5 +17,6 @@ UPA *upas_free(UPA *upa, int qtd);//Libera o vetor das upas
 void upas_print(UPA *upa, int qtd); //Imprime as upas
 void upas_quicksort(UPA *upa, int l, int r); //Ordena as upas
 int upas_partition(UPA *upa, int l, int r); //Particiona as upas
+int upas_comp(UPA a, UPA b); //Compara duas upas
 
 #endif

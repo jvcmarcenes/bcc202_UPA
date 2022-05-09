@@ -1,6 +1,6 @@
-
 #include<stdio.h>
 #include<stdlib.h>
+#include <string.h>
 #include "ordenacao.h"
 
 
@@ -33,14 +33,57 @@ UPA *upas_scan(int *qtd) {
 }
 
 void upas_quicksort(UPA *upa, int l, int r){
-	int q;
+	int q; //Pivo
 	if(l < r){
-		q = upas_partition(upa, l, r);
-		upas_quicksort(upa, l, q - 1);
-		upas_quicksort(upa, q + 1, r);
+		q = upas_partition(upa, l, r); //Particiona e mostra o pivo
+		upas_quicksort(upa, l, q - 1); //Recurção
+		upas_quicksort(upa, q + 1, r); //Recurção
 	}
 }
 
 int upas_partition(UPA *upa, int l, int r){
-	//TODO fazer essa porra aqui
+	UPA x = upa[r], aux;//Pivo
+	int i = l - 1;
+	for(int j = l; j < r; j++){//varre o vetor porcurando alguem menor que x
+		if(upas_comp(upa[j], x) >= 0){ //Faz a troca das posições
+			aux = upa[++i];
+			upa[i] = upa[j];
+			upa[j] = aux;
+		}
+	}
+	//Troca o pivo
+	aux = upa[++i];
+	upa[i] = upa[r];
+	upa[r] = aux;
+
+	//Retorna a posição do pivo
+	return i;
+}
+
+int upas_comp(UPA a, UPA b){
+	// -1  se o B tiver prioridade
+	// 0  se ambos forem iguais
+	// 1  se o A tiver prioridade
+
+	//Compara a quantidade de pessoas na emergencia
+	if(a.emergencia < b.emergencia) return -1;
+	else if(a.emergencia > b.emergencia) return 1;
+
+	//Compara a quantidade de pessoas na urgencia
+	if(a.urgencia < b.urgencia) return -1;
+	else if(a.urgencia > b.urgencia) return 1;
+
+	//Compara a quantidade de pessoas na sem urgencia
+	if(a.sem_urgencia < b.sem_urgencia) return -1;
+	else if(a.sem_urgencia > b.sem_urgencia) return 1;
+
+	//Compara a quantidade de medicos
+	if(a.qtd_medicos > b.qtd_medicos) return -1;
+	else if(a.qtd_medicos < b.qtd_medicos) return 1;
+
+	//Copara os nomes
+	if(strcmp(a.nome, b.nome) > 0 ) return -1;
+	else if(strcmp(a.nome, b.nome) < 0 ) return 1;
+
+	return 0;
 }
