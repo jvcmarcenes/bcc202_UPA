@@ -13,7 +13,7 @@ UPA *upas_free(UPA *upa, int qtd){
 
 void upa_scan(UPA *upa) {
 	upa->nome = (char*) malloc(50 * sizeof(char)); //Aloca um vetor de char
-	//Lé os dados de cada upa
+	//Lê os dados de cada upa
 	scanf("%s %d %d %d %d", upa->nome, &(upa->emergencia), &(upa->urgencia), &(upa->sem_urgencia), &(upa->qtd_medicos));
 }
 
@@ -23,11 +23,11 @@ void upas_print(UPA *upa, int qtd){
 }
 
 UPA *upas_scan(int *qtd) {
-	scanf("%d", qtd); //Lé a quntidade de upas
+	scanf("%d", qtd); //Lê a quantidade de upas
 
 	UPA *upa = (UPA*) malloc(*qtd * sizeof(UPA)); //Aloca o vetor das upas
 
-	for(int i  = 0; i < *qtd; i++) upa_scan(&upa[i]); //Preenche cada celula da upa
+	for(int i  = 0; i < *qtd; i++) upa_scan(&upa[i]); //Preenche cada célula da upa
 
 	return upa;
 }
@@ -36,15 +36,15 @@ void upas_quicksort(UPA *upa, int l, int r){
 	int q; //Pivo
 	if(l < r){
 		q = upas_partition(upa, l, r); //Particiona e mostra o pivo
-		upas_quicksort(upa, l, q - 1); //Recurção
-		upas_quicksort(upa, q + 1, r); //Recurção
+		upas_quicksort(upa, l, q - 1); //Recursão
+		upas_quicksort(upa, q + 1, r); //Recursão
 	}
 }
 
 int upas_partition(UPA *upa, int l, int r){
 	UPA x = upa[r], aux;//Pivo
 	int i = l - 1;
-	for(int j = l; j < r; j++){//varre o vetor porcurando alguem menor que x
+	for(int j = l; j < r; j++){ //Varre o vetor procurando alguem menor que x
 		if(upas_comp(upa[j], x) >= 0){ //Faz a troca das posições
 			aux = upa[++i];
 			upa[i] = upa[j];
@@ -81,7 +81,7 @@ int upas_comp(UPA a, UPA b){
 	if(a.qtd_medicos > b.qtd_medicos) return -1;
 	else if(a.qtd_medicos < b.qtd_medicos) return 1;
 
-	//Copara os nomes
+	//Compara os nomes
 	if(strcmp(a.nome, b.nome) > 0 ) return -1;
 	else if(strcmp(a.nome, b.nome) < 0 ) return 1;
 
