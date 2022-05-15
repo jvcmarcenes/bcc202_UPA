@@ -5,10 +5,13 @@
 
 
 
-UPA *upas_free(UPA *upa, int qtd){
-	for(int i = 0; i < qtd; i++) free(upa[i].nome); //Libera as strings
-	free(upa); //Libera o vetor das upas
-	return upa;
+void upas_free(UPA **upa, int qtd){
+	for(int i = 0; i < qtd; i++) {
+		free((*upa)[i].nome); //Libera as strings
+		(*upa)[i].nome = NULL;
+	}
+	free(*upa); //Libera o vetor das upas
+	*upa = NULL;
 }
 
 void upa_scan(UPA *upa) {
